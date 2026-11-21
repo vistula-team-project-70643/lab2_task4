@@ -1,19 +1,25 @@
+import java.math.BigDecimal;
+
 public class Lab2Task4Farrukhi {
     public static void main(String[] args) {
         double productCostFarrukhi = 9.99;
         double vatRateFarrukhi = 0.05;
 
-        double singleVatFarrukhi = productCostFarrukhi * vatRateFarrukhi;
+        BigDecimal productCostBD = BigDecimal.valueOf(productCostFarrukhi);
+        BigDecimal vatRateBD = BigDecimal.valueOf(vatRateFarrukhi);
+
+        BigDecimal singleVatFarrukhi = productCostBD.multiply(vatRateBD);
+        BigDecimal singleGrossFarrukhi = productCostBD.add(singleVatFarrukhi);
         System.out.println("Single unit VAT: " + singleVatFarrukhi);
 
-        double totalNetSalesFarrukhi = 0;
-        double totalVatFarrukhi = 0;
-        double totalGrossFarrukhi = 0;
+        BigDecimal totalNetSalesFarrukhi = BigDecimal.ZERO;
+        BigDecimal totalVatFarrukhi = BigDecimal.ZERO;
+        BigDecimal totalGrossFarrukhi = BigDecimal.ZERO;
 
         for (int i = 0; i < 10000; i++) {
-            totalNetSalesFarrukhi += productCostFarrukhi;
-            totalVatFarrukhi += singleVatFarrukhi;
-            totalGrossFarrukhi += (productCostFarrukhi + singleVatFarrukhi);
+            totalNetSalesFarrukhi = totalNetSalesFarrukhi.add(productCostBD);
+            totalVatFarrukhi = totalVatFarrukhi.add(singleVatFarrukhi);
+            totalGrossFarrukhi = totalGrossFarrukhi.add(singleGrossFarrukhi);
         }
 
         System.out.println("Total net sales value: " + totalNetSalesFarrukhi);
